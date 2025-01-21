@@ -1,12 +1,16 @@
+// homepage/page.js
 import React from "react";
 
-function HeroPage() {
+import SocialMediaFeed from "./components/socialmedia";
+import Hero from "./components";
+
+const HomePage = () => {
   return (
     <div>
-      HeroPage
-      <div>home page</div>
+      <Hero />
+      <SocialMediaFeed />
     </div>
   );
-}
+};
 
-export default HeroPage;
+export default HomePage;
