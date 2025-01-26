@@ -1,6 +1,8 @@
 "use client";
+import NewsHeader from "@/app/news/components/newsheader";
+import Image from "next/image";
 import Link from "next/link";
-import React, { useState, useEffect, useRef } from "react";
+import React, { useRef } from "react";
 
 const Hero = () => {
   const fixturesRef = useRef(null);
@@ -91,18 +93,76 @@ const Hero = () => {
       awayScore: 1,
     },
   ];
+  const news = [
+    {
+      title: "Adama City wins the championship!",
+      image: "/bannerimg1.jpeg",
+      id: 1,
+    },
+    {
+      title: "New coach joins the team",
+      image: "/bannerimg.jpg",
+      id: 2,
+    },
+    {
+      title: "Upcoming fixtures announced",
+      image: "/bannerimg.jpeg",
+      id: 3,
+    },
+    {
+      title: "Adama City wins the championship!",
+      image: "/bannerimg1.jpeg",
+      id: 1,
+    },
+    {
+      title: "New coach joins the team",
+      image: "/bannerimg.jpg",
+      id: 2,
+    },
+    {
+      title: "Upcoming fixtures announced",
+      image: "/bannerimg.jpeg",
+      id: 3,
+    },
+  ];
+  const popularNewsData = [
+    { id: "4", title: "Popular News 1", image: "/bannerimg.jpeg" },
+    { id: "5", title: "Popular News 2", image: "/bannerimg.jpg" },
+    { id: "4", title: "Popular News 1", image: "/bannerimg.jpeg" },
+    { id: "5", title: "Popular News 2", image: "/bannerimg.jpg" },
+  ];
+  const teamLogos = {
+    ARS: "/arsenal.jpeg",
+    CHL: "/chelsea.png",
+    LIV: "/liverpool.png",
+    EVE: "/everton.png",
+    BRC: "/brighton.jpeg",
+    RM: "/realmadrid.png",
+    CIT: "/manchestercity.png",
+    KIN: "/kings.png",
+    ST: "/stoke.png",
+    FRA: "/frankfurt.png",
+    SPA: "/spain.jpeg",
+    MUN: "/manchesterunited.jpeg",
+    TOT: "/tottenham.png",
+    NAP: "/napoli.png",
+    ROM: "/roma.png",
+    PSG: "/psg.jpeg",
+    MAR: "/marselle.png",
+  };
 
-  // Auto-slide every 3 seconds
-  useEffect(() => {
-    const intervalId = setInterval(() => {
-      if (fixturesRef.current) {
-        const firstChild = fixturesRef.current.firstChild;
-        fixturesRef.current.appendChild(firstChild); // Move first fixture to the end
+  const handleSlide = (direction) => {
+    if (fixturesRef.current) {
+      const container = fixturesRef.current;
+      if (direction === "left") {
+        const lastChild = container.lastChild;
+        container.prepend(lastChild);
+      } else {
+        const firstChild = container.firstChild;
+        container.appendChild(firstChild);
       }
-    }, 3000);
-
-    return () => clearInterval(intervalId); // Cleanup interval on component unmount
-  }, []);
+    }
+  };
 
   return (
     <div className="bg-white text-black">
@@ -115,42 +175,75 @@ const Hero = () => {
       </div>
 
       {/* Fixture Section */}
-      <div className="bg-white text-black max-w-full mx-auto py-8 ">
-        <div className="overflow-hidden">
-          <div
-            ref={fixturesRef}
-            className="flex gap-2 transition-transform duration-[3s] ease-in-out"
-          >
-            {fixtures.map((fixture, index) => (
-              <Link
-                key={index}
-                href="/match-info/fixture"
-                className="flex-shrink-0 w-48 p-4 border rounded-md shadow bg-gray-100 text-center flex flex-col cursor-pointer transform transition-transform duration-500 ease-in-out"
-              >
-                <time
-                  dateTime={fixture.date}
-                  className="text-red-600 font-bold"
+      <div className="mx-auto py-4 px-3">
+        <div className="bg-white text-black max-w-full py-4 relative group">
+          <div className="overflow-hidden">
+            <div
+              ref={fixturesRef}
+              className="flex gap-2 transition-transform duration-500 ease-in-out"
+            >
+              {fixtures.map((fixture, index) => (
+                <Link
+                  key={index}
+                  href="/match-info/fixture"
+                  className="flex-shrink-0 w-50 p-4 border rounded-md shadow bg-gray-100 text-center flex flex-col cursor-pointer"
                 >
-                  {fixture.date}
-                </time>
-                <div className="flex flex-col mt-2">
-                  <span className="font-semibold">{fixture.home}</span>
-                  <span className="text-gray-600">
-                    {fixture.note
-                      ? fixture.note
-                      : fixture.homeScore + " - " + fixture.awayScore}
-                  </span>
-                  <span className="font-semibold">{fixture.away}</span>
-                  {fixture.status && (
-                    <span className="text-sm text-gray-500">
-                      {fixture.status}
-                    </span>
-                  )}
-                </div>
-              </Link>
-            ))}
+                  <time
+                    dateTime={fixture.date}
+                    className="text-red-600 font-bold"
+                  >
+                    {fixture.date}
+                  </time>
+                  <div className="flex flex-col items-center mt-2 gap-2">
+                    <div className="flex items-center gap-4">
+                      <Image
+                        src={teamLogos[fixture.home]}
+                        alt={fixture.home}
+                        width={50}
+                        height={50}
+                        className="rounded-full"
+                      />
+                      <span className="text-gray-600 font-semibold">
+                        {fixture.note
+                          ? fixture.note
+                          : `${fixture.homeScore} - ${fixture.awayScore}`}
+                      </span>
+                      <Image
+                        src={teamLogos[fixture.away]}
+                        alt={fixture.away}
+                        width={50}
+                        height={50}
+                        className="rounded-full"
+                      />
+                    </div>
+                    {fixture.status && (
+                      <span className="text-sm text-gray-500">
+                        {fixture.status}
+                      </span>
+                    )}
+                  </div>
+                </Link>
+              ))}
+            </div>
           </div>
+          {/* Left Arrow */}
+          <button
+            onClick={() => handleSlide("left")}
+            className="absolute top-1/2 left-2 -translate-y-1/2 bg-red-600 text-white text-lg border rounded-l-full p-2 md:opacity-0 md:group-hover:opacity-100 transition-opacity"
+          >
+            &lt;
+          </button>
+
+          {/* Right Arrow */}
+          <button
+            onClick={() => handleSlide("right")}
+            className="absolute top-1/2 right-2 -translate-y-1/2 bg-red-600 text-white text-lg rounded-r-full p-2 md:opacity-0 md:group-hover:opacity-100 transition-opacity"
+          >
+            &gt;
+          </button>
         </div>
+        {/* News Section */}
+        <NewsHeader news={news} popularNews={popularNewsData} />
       </div>
     </div>
   );

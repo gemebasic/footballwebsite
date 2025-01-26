@@ -6,7 +6,7 @@ import Hero from "./components";
 
 const HomePage = () => {
   return (
-    <div>
+    <div className="">
       <Hero />
       <SocialMediaFeed />
     </div>
