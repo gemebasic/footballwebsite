@@ -15,7 +15,7 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="bg-slate-900">
+    <nav className="bg-slate-900 z-30">
       <div className="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8">
         <div className="relative flex items-center justify-between h-16">
           {/* Mobile menu button */}
@@ -103,7 +103,7 @@ const Navbar = () => {
                   Match Info
                 </span>
                 {isDropdownOpen.matchInfo && (
-                  <div className="absolute left-0 mt-0 w-48 bg-slate-800 text-white rounded-md shadow-lg">
+                  <div className="z-50 absolute left-0 mt-0 w-48 bg-slate-800 text-white rounded-md shadow-lg">
                     <Link href="/match-info/fixture">
                       <span className="text-white block px-3 py-2 rounded-md text-sm hover:bg-gray-700 cursor-pointer">
                         Fixture
@@ -139,23 +139,28 @@ const Navbar = () => {
                 }
               >
                 <span className="text-white hover:bg-gray-700 px-3 py-2 rounded-md text-sm font-medium cursor-pointer">
-                  Players
+                  Team
                 </span>
                 {isDropdownOpen.players && (
-                  <div className="absolute left-0 mt-0 w-48 bg-slate-800 text-white rounded-md shadow-lg">
-                    <Link href="/players/men">
+                  <div className="z-50 absolute left-0 mt-0 w-48 bg-slate-800 text-white rounded-md shadow-lg">
+                    <Link href="/team/men">
                       <span className="block px-4 py-2 text-sm hover:bg-gray-700 cursor-pointer">
                         Men
                       </span>
                     </Link>
-                    <Link href="/players/women">
+                    <Link href="/team/women">
                       <span className="block px-4 py-2 text-sm hover:bg-gray-700 cursor-pointer">
                         Women
                       </span>
                     </Link>
-                    <Link href="/players/academy">
+                    <Link href="/team/academy">
                       <span className="block px-4 py-2 text-sm hover:bg-gray-700 cursor-pointer">
                         Academy
+                      </span>
+                    </Link>
+                    <Link href="/team/staff">
+                      <span className="block px-4 py-2 text-sm hover:bg-gray-700 cursor-pointer">
+                        Staff
                       </span>
                     </Link>
                   </div>
@@ -171,6 +176,7 @@ const Navbar = () => {
                   Our Shop
                 </span>
               </Link>
+
               <Link href="/contact">
                 <span className="text-white hover:bg-gray-700 px-3 py-2 rounded-md text-sm font-medium cursor-pointer">
                   Contact Us

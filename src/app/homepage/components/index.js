@@ -3,6 +3,9 @@ import NewsHeader from "@/app/news/components/newsheader";
 import Image from "next/image";
 import Link from "next/link";
 import React, { useRef } from "react";
+import Banner from "./banner";
+import AdamaWomenFootball from "./womenfootballer";
+import Academy from "./academy";
 
 const Hero = () => {
   const fixturesRef = useRef(null);
@@ -68,7 +71,7 @@ const Hero = () => {
       date: "February 10, 2017",
       home: "MUN",
       homeScore: 2,
-      away: "CHE",
+      away: "CHL",
       awayScore: 3,
     },
     {
@@ -167,12 +170,13 @@ const Hero = () => {
   return (
     <div className="bg-white text-black">
       {/* Banner Section */}
-      <div className="bg-red-600 text-white py-12 text-center">
+      {/* <div className="bg-red-600 text-white py-12 text-center">
         <h1 className="text-4xl font-bold uppercase">
           Adama City Football Club (ADfc)
         </h1>
         <p className="mt-2 text-lg">Pride of Adama</p>
-      </div>
+      </div> */}
+      <Banner />
 
       {/* Fixture Section */}
       <div className="mx-auto py-4 px-3">
@@ -197,7 +201,7 @@ const Hero = () => {
                   <div className="flex flex-col items-center mt-2 gap-2">
                     <div className="flex items-center gap-4">
                       <Image
-                        src={teamLogos[fixture.home]}
+                        src={teamLogos[fixture.home] || teamLogos.default}
                         alt={fixture.home}
                         width={50}
                         height={50}
@@ -209,7 +213,7 @@ const Hero = () => {
                           : `${fixture.homeScore} - ${fixture.awayScore}`}
                       </span>
                       <Image
-                        src={teamLogos[fixture.away]}
+                        src={teamLogos[fixture.away] || teamLogos.default}
                         alt={fixture.away}
                         width={50}
                         height={50}
@@ -244,6 +248,12 @@ const Hero = () => {
         </div>
         {/* News Section */}
         <NewsHeader news={news} popularNews={popularNewsData} />
+      </div>
+      <div className="x-auto py-4 px-3">
+        <AdamaWomenFootball />
+      </div>
+      <div className="x-auto py-4 px-3">
+        <Academy />
       </div>
     </div>
   );
